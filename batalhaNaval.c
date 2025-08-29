@@ -1,40 +1,63 @@
-#include <stdio.h>
+##include <stdio.h>
 
-// Desafio Batalha Naval - MateCheck
-// Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
-// Siga os comentários para implementar cada parte do desafio.
+#define N 5 // tamanho do tabuleiro (5x5 como exemplo)
+
+void imprimirMatriz(int matriz[N][N]) {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            printf("%d ", matriz[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
+
+void habilidadeCone() {
+    int matriz[N][N] = {0};
+
+    for (int i = 0; i < N; i++) {
+        for (int j = N/2 - i; j <= N/2 + i; j++) {
+            if (j >= 0 && j < N) {
+                matriz[i][j] = 1;
+            }
+        }
+    }
+
+    printf("Habilidade: Cone\n");
+    imprimirMatriz(matriz);
+}
+
+void habilidadeCruz() {
+    int matriz[N][N] = {0};
+
+    for (int i = 0; i < N; i++) {
+        matriz[i][N/2] = 1; // coluna central
+        matriz[N/2][i] = 1; // linha central
+    }
+
+    printf("Habilidade: Cruz\n");
+    imprimirMatriz(matriz);
+}
+
+void habilidadeOctaedro() {
+    int matriz[N][N] = {0};
+
+    int centro = N / 2;
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            if (abs(i - centro) + abs(j - centro) <= centro) {
+                matriz[i][j] = 1;
+            }
+        }
+    }
+
+    printf("Habilidade: Octaedro\n");
+    imprimirMatriz(matriz);
+}
 
 int main() {
-    // Nível Novato - Posicionamento dos Navios
-    // Sugestão: Declare uma matriz bidimensional para representar o tabuleiro (Ex: int tabuleiro[5][5];).
-    // Sugestão: Posicione dois navios no tabuleiro, um verticalmente e outro horizontalmente.
-    // Sugestão: Utilize `printf` para exibir as coordenadas de cada parte dos navios.
-
-    // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
-    // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
-    // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
-    // Sugestão: Exiba o tabuleiro completo no console, mostrando 0 para posições vazias e 3 para posições ocupadas.
-
-    // Nível Mestre - Habilidades Especiais com Matrizes
-    // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
-    // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
-    // Sugestão: Exiba o tabuleiro com as áreas afetadas, utilizando 0 para áreas não afetadas e 1 para áreas atingidas.
-
-    // Exemplos de exibição das habilidades:
-    // Exemplo para habilidade em cone:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 1 1 1 1 1
-    
-    // Exemplo para habilidade em octaedro:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 0 0 1 0 0
-
-    // Exemplo para habilidade em cruz:
-    // 0 0 1 0 0
-    // 1 1 1 1 1
-    // 0 0 1 0 0
-
+    habilidadeCone();
+    habilidadeCruz();
+    habilidadeOctaedro();
     return 0;
 }
